@@ -1,0 +1,30 @@
+.login_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 396px;
+    height: 426px;
+    padding-top: 55px;
+    padding-bottom: 41px;
+    background: #FAFAFA;
+}
+
+form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (max-width: 404px ) {
+   .login_wrap {
+       width: 96%;
+   }
+
+    form {
+        width: 90%;
+    }
+
+}

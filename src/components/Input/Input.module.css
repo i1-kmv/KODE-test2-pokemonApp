@@ -1,0 +1,26 @@
+.input_area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 278px;
+    height: 68px;
+    background-color: #ECECEC;
+    padding-left: 19px;
+    font-family: Roboto;
+    font-size: 12px;
+    color: #A0A0A0;
+}
+
+.input_area input {
+    width: 120px;
+    background-color:  #ECECEC;
+    border: none;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 320px ) {
+    .input_area {
+        width:100%;
+    }
+
+}

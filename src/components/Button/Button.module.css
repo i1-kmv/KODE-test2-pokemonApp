@@ -1,0 +1,17 @@
+.login_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background-color: #999999;
+    border: none;
+    outline-style: none;
+}
+
+.login_button img {
+    width: 48px;
+    height: 48px;
+    color: coral;
+}

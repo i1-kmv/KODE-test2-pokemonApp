@@ -1,0 +1,17 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:start;
+    width: 217px;
+    height: 217px;
+    padding: 16px 14px;
+    background-color: #EBEBEB;
+    margin-bottom: 57px;
+}
+
+.image {
+    height: 133px;
+    width: 100%;
+    background-color: cornflowerblue;
+}

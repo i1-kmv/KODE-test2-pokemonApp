@@ -15,3 +15,16 @@
     width: 100%;
     background-color: cornflowerblue;
 }
+
+@media screen and (max-width: 910px ) {
+   .wrap {
+       width: 150px;
+       height: 150px;
+       padding: 8px 7px
+   }
+}
+@media screen and (max-width:680px ) {
+    .wrap {
+        margin: 20px;
+    }
+}

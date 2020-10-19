@@ -1,0 +1,148 @@
+.wrap {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 1032px;
+    max-width: 1032px;
+}
+
+
+.profileBar {
+    width: 100%;
+    background-color: #EBEBEB;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 34px 27px 21px;
+    margin-bottom: 30px;
+}
+
+.profileBar button{
+    border: none;
+    font-size: 18px;
+    line-height: 21px;
+    background-color: #EBEBEB;
+}
+
+.profileBar button:hover {
+    cursor: pointer;
+}
+
+.profileContent {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.profileContent__image {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-right: 34px;
+}
+
+.profileContent__image img {
+    display: block;
+    width: 622px;
+    max-width: 622px;
+    height: 438px;
+    margin-bottom: 61px;
+    background-color: #C4C4C4;
+}
+
+.profileContent__image span {
+    display: block;
+    width: 622px;
+    max-width: 600px;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.description__name {
+    position: relative;
+}
+
+.description__name:after {
+    content: '';
+    position: absolute;
+    width: 243px;
+    border: 1px solid #DBDBDB;
+    bottom: -50px;
+}
+
+.description__name div {
+    margin-bottom: 34px;
+}
+
+.description__char {
+    margin-top: 103px;
+}
+
+.description__char div {
+     margin-bottom: 23px;
+}
+
+
+@media screen and (max-width:1032px ) {
+    .wrap {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:915px ) {
+    .profileContent {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+    }
+    .profileContent__image {
+        align-items: center;
+        margin-bottom: 50px;
+        margin-right: 0px;
+        width: 90%;
+    }
+    .profileContent__image img {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .profileContent__image span {
+        width: 100%;
+        text-align: center;
+    }
+    .profileContent__description {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+    .description__name:after {
+        display: none;
+    }
+    .description__name {
+        margin-bottom: 0px;
+    }
+    .description__char {
+        margin-top: 0px;
+    }
+    .description__name div {
+        margin-bottom: 20px;
+    }
+    .description__char div {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width:600px ) {
+    .profileContent__image img {
+        height: 338px;
+    }
+}
+
+@media screen and (max-width:400px ) {
+    .profileContent__image img {
+        height: 238px;
+    }
+}

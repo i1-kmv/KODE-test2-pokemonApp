@@ -1,4 +1,4 @@
-.login_button {
+.button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,8 +10,16 @@
     outline-style: none;
 }
 
-.login_button img {
+.button img {
     width: 48px;
     height: 48px;
-    color: coral;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.button:active {
+    border: 2px solid green;
 }

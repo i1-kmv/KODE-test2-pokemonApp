@@ -23,6 +23,7 @@
        padding: 8px 7px
    }
 }
+
 @media screen and (max-width:680px ) {
     .wrap {
         margin: 20px;

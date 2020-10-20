@@ -1,12 +1,16 @@
-import React from 'react';
-import './App.css';
-import {PasswordConfirmation} from "../pages/PasswordСonfirmation/PasswordСonfirmation";
-import {MainScreen} from "../pages/MainScreen/MainScreen";
-import {PokemonProfile} from "../pages/PokemonProfile/PokemonProfile";
-import {Login} from "../pages/Login/Login";
-import { Switch, Route } from 'react-router-dom';
+import React from 'react'
+import './App.css'
+import {PasswordConfirmation} from "../pages/PasswordСonfirmation/PasswordСonfirmation"
+import {MainScreen} from "../pages/MainScreen/MainScreen"
+import {PokemonProfile} from "../pages/PokemonProfile/PokemonProfile"
+import {Login} from "../pages/Login/Login"
+import { Switch, Route } from 'react-router-dom'
+
+
+
 
 function App() {
+    
   return (
     <div className="App">
      <Switch>
@@ -16,7 +20,9 @@ function App() {
          <Route exact path={'/profile'} render={() =>  <PokemonProfile/>}/>
      </Switch>
     </div>
-  );
+  )
+  
 }
 
-export default App;
+
+export default App

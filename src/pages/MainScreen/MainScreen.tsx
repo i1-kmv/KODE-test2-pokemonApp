@@ -5,9 +5,8 @@ import {PokemonCard} from "../../components/PokemonCard/PokemonCard";
 
 
 
-
-
 export const MainScreen = () => {
+
     return (
        <div className={styles.wrap}>
             <div className={styles.mainBar}>
@@ -28,4 +27,5 @@ export const MainScreen = () => {
             </div>
        </div>
     )
+
 }

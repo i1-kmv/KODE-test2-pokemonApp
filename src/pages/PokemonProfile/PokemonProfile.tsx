@@ -5,6 +5,7 @@ import styles from './PokemonProfile.module.css'
 
 
 export const PokemonProfile = () => {
+
     return (
        <div className={styles.wrap}>
            <div className={styles.profileBar}>
@@ -35,4 +36,5 @@ export const PokemonProfile = () => {
            </div>
        </div>
     )
+
 }

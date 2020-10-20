@@ -5,6 +5,7 @@ import styles from './PokemonCard.module.css'
 
 
 export const PokemonCard = () => {
+
     return (
         <div className={styles.wrap}>
             <div className={styles.image}><img src="" alt="#"/></div>
@@ -12,4 +13,5 @@ export const PokemonCard = () => {
             <div>Artist</div>
         </div>
     )
+
 }

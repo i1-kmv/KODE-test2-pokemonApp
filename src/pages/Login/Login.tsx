@@ -5,7 +5,7 @@ import {Button} from "../../components/Button/Button"
 import {useFormik} from "formik"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../app/store"
-import {loginTC, setIsLoggedInAc} from "./auth-reducer"
+import {loginTC} from "./auth-reducer"
 import {Redirect} from 'react-router-dom'
 import {ErrorSnackbar} from "../../utils/ErrorSnackbar"
 
@@ -59,7 +59,6 @@ export const Login = () => {
                        type={'password'}
                        name={'password'}
                        formikProps={{...formik.getFieldProps('password')}}
-
                 />
                 {formik.errors.password ? <div>{formik.errors.password}</div> : null}
                 <Button/>

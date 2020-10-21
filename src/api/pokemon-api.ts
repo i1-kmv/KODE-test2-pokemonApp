@@ -1,24 +1,34 @@
 import axios from 'axios'
 import {FormikErrorType} from "../pages/Login/Login"
+import {PokemonTCG} from "pokemon-tcg-sdk-typescript";
+import {Meta} from "pokemon-tcg-sdk-typescript/dist/classes/meta";
+
+
 
 
 const settings = {
     withCredentials: true,
-    headers: {}
+    headers: {
+        'Page-Size': '4',
+        'Count': '4',
+        'Total-Count': '4',
+    }
 }
-
-
-const instance = axios.create({
-    baseURL: 'https://api.pokemontcg.io/v1/',
-    ...settings
-})
 
 
 export const pokemonApi = {
     getCards() {
-        const promise = instance.get('/cards')
+       const promise = PokemonTCG.Card.all()
         return promise
     },
+    getTypes(){
+        const promise = Meta.allTypes()
+        return promise
+    },
+    getSubTypes(){
+        const promise = Meta.allSubtypes()
+        return promise
+    }
 }
 
 
@@ -62,9 +72,19 @@ export const authApi = {
             }
         })
     },
+    //запрос для проброса в thunk
+    logout__mock() {
+        return new Promise((res, rej) => {
+            res(true)
+        })
+    }
 }
 
 
-export const CardsType = {
-
+export type CardType = {
+    imageUrl: string
+    name: string
+    artist: string
+    types?: Array<string>
+    subtype?: string
 }

@@ -28,6 +28,7 @@
 }
 
 .mainBar button:hover {
+    background-color: yellow;
     cursor: pointer;
 }
 
@@ -38,11 +39,29 @@
 }
 
 .selectsBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     width: 318px;
     height: 100%;
     padding-top: 72px;
     background-color: #FAFAFA;
     margin-right: 10px;
+}
+
+.types {
+    width: 80%;
+    margin-bottom: 72px;
+}
+
+.types option{
+    width: 100%;
+
+}
+
+.subtypes {
+    width: 80%;
 }
 
 .cards {
@@ -77,9 +96,15 @@
         flex-direction: column;
     }
 
+    .mainBar {
+        margin-bottom: 15px;
+    }
+
     .selectsBar {
         width: 100%;
         margin-bottom: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
 
     .cards {
@@ -90,6 +115,10 @@
     .cardsItems {
         justify-content: center;
         height: 100%;
+    }
+
+    .types {
+        margin-bottom: 10px;
     }
 }
 

@@ -3,17 +3,22 @@
     flex-direction: column;
     justify-content: space-between;
     align-items:start;
-    width: 217px;
-    height: 217px;
-    padding: 16px 14px;
-    background-color: #EBEBEB;
-    margin-bottom: 57px;
+    width: 200px;
+    height: 250px;
+    padding: 8px;
+    margin-bottom: 30px;
+    border: 2px solid black;
 }
 
 .image {
-    height: 133px;
     width: 100%;
+    height: 80%;
     background-color: cornflowerblue;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
 }
 
 @media screen and (max-width: 910px ) {

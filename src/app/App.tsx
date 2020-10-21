@@ -15,9 +15,9 @@ function App() {
     <div className="App">
      <Switch>
          <Route exact path={'/'} render={() => <Login/>}/>
-         <Route exact path={'/confirmation'} render={() =>  <PasswordConfirmation/>}/>
+         <Route  path={'/confirmation'} render={() =>  <PasswordConfirmation/>}/>
          <Route exact path={'/main'} render={() => <MainScreen/>}/>
-         <Route exact path={'/profile'} render={() =>  <PokemonProfile/>}/>
+         <Route  path={'/profile'} render={() =>  <PokemonProfile/>}/>
      </Switch>
     </div>
   )

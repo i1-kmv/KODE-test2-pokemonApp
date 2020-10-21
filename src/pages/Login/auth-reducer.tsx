@@ -25,10 +25,11 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 
 }
 
-//actions
+
+//AC
 
 
-export const setIsLoggedInAc = (value: boolean) => ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+export const setIsLoggedInAC = (value: boolean) => ({type: 'login/SET-IS-LOGGED-IN', value} as const)
 export const setAppIsConfirmedAC = (value:  boolean) => ({ type: 'APP/SET-IS-CONFIRMED', value } as const)
 
 
@@ -39,11 +40,22 @@ export const loginTC = (data: FormikErrorType) => (dispatch: Dispatch) => {
 
     authApi.login_mock(data)
         .then(res => {
-            dispatch(setIsLoggedInAc(true))
+            dispatch(setIsLoggedInAC(true))
         }).catch(err => {
         dispatch(setAppIsInitializedAC(true))
         dispatch(setAppErrorAC(err))
     })
+
+}
+
+
+export const logoutTC = ( ) => (dispatch: Dispatch) => {
+
+    authApi.logout__mock()
+        .then(res => {
+            console.log(res)
+            dispatch(setIsLoggedInAC(false))
+        })
 
 }
 
@@ -64,7 +76,7 @@ export const confirmTC = (data: FormikErrorType) => (dispatch: Dispatch) => {
 //types
 
 
-type ActionsType = ReturnType<typeof setIsLoggedInAc> | ReturnType<typeof setAppIsConfirmedAC>
+type ActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setAppIsConfirmedAC>
 
 
 type InitialStateType = {

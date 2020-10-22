@@ -6,16 +6,6 @@ import {Meta} from "pokemon-tcg-sdk-typescript/dist/classes/meta";
 
 
 
-const settings = {
-    withCredentials: true,
-    headers: {
-        'Page-Size': '4',
-        'Count': '4',
-        'Total-Count': '4',
-    }
-}
-
-
 export const pokemonApi = {
     getCards() {
        const promise = PokemonTCG.Card.all()
@@ -28,11 +18,25 @@ export const pokemonApi = {
     getSubTypes(){
         const promise = Meta.allSubtypes()
         return promise
+    },
+    getSuperTypes(){
+        const promise = Meta.allSupertypes()
+        return promise
     }
 }
 
 
-//Создал фэйковое айпи для имитации post запросов на сервер
+//Создал фэйковое айпи для имитации post запросов на
+
+
+const settings = {
+    withCredentials: true,
+    headers: {
+        'Page-Size': '4',
+        'Count': '4',
+        'Total-Count': '4',
+    }
+}
 
 
 const fakeInstance = axios.create({
@@ -87,4 +91,6 @@ export type CardType = {
     artist: string
     types?: Array<string>
     subtype?: string
+    supertype?: string
+    id?:string
 }

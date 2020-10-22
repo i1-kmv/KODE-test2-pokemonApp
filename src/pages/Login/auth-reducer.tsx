@@ -7,7 +7,7 @@ import {setAppErrorAC, setAppIsInitializedAC} from "../../app/app-reducer"
 
 
 const initialState: InitialStateType = {
-    isLoggedIn: false,
+    isLoggedIn: true,
     isConfirm: false,
 }
 
@@ -55,6 +55,7 @@ export const logoutTC = ( ) => (dispatch: Dispatch) => {
         .then(res => {
             console.log(res)
             dispatch(setIsLoggedInAC(false))
+            dispatch(setAppIsConfirmedAC(false))
         })
 
 }

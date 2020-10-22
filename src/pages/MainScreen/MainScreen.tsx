@@ -1,22 +1,40 @@
-import React, {useCallback, useEffect} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import styles from './MainScreen.module.css'
 import {PokemonCard} from "../../components/PokemonCard/PokemonCard"
 import {useDispatch, useSelector} from "react-redux"
-import {fetchCardsTC, getSubTypesTC, getTypesTC, setSubtypeFilterAC, setTypeFilterAC} from "./main-reducer"
+import {
+    fetchCardsTC,
+    getSubTypesTC,
+    getSuperTypesTC,
+    getTypesTC,
+    setSubtypeFilterAC, setSupertypeFilterAC,
+    setTypeFilterAC
+} from "./main-reducer"
 import {AppRootStateType} from "../../app/store"
 import {CardType} from "../../api/pokemon-api"
 import {Redirect} from 'react-router-dom'
 import {logoutTC} from "../Login/auth-reducer"
+import {Popup} from "../../components/Popup/Popup"
+import Pagination from "../../components/Pagination/Pagination"
+
+
 
 
 export const MainScreen = () => {
 
+
+    let [currentPage, setCurrentPage] = useState(1)
+
+
     const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.main.cards)
     const types = useSelector<AppRootStateType, Array<string>>(state => state.main.types)
     const subtypes = useSelector<AppRootStateType, Array<string>>(state => state.main.subtypes)
+    const supertypes = useSelector<AppRootStateType, Array<string>>(state => state.main.supertypes)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const filterTypeValue = useSelector<AppRootStateType, string>(state => state.main.filterTypeValue)
     const filterSubtypeValue = useSelector<AppRootStateType, string>(state => state.main.filterSubtypeValue)
+    const filterSupertypeValue = useSelector<AppRootStateType, string>(state => state.main.filterSupertypeValue)
+    const popupMode = useSelector<AppRootStateType, boolean>(state => state.main.popupMode)
 
 
     const dispatch = useDispatch()
@@ -40,7 +58,13 @@ export const MainScreen = () => {
     }, [])
 
 
-    const logoutHandler =useCallback(() => {
+    useEffect(() => {
+        const thunk = getSuperTypesTC()
+        dispatch(thunk)
+    }, [])
+
+
+    const logoutHandler = useCallback(() => {
         dispatch(logoutTC())
     }, [])
 
@@ -57,19 +81,45 @@ export const MainScreen = () => {
     }
 
 
-    // if (isLoggedIn === false) {
-    //     return <Redirect to={'/'}/>
-    // }
+    const selectSupertypeHandler = (e: any) => {
+        let newValue = e.currentTarget.value
+        dispatch(setSupertypeFilterAC(newValue))
+    }
+
+
+    if (isLoggedIn === false) {
+        return <Redirect to={'/'}/>
+    }
+
+
+    let filteredCard = cards.filter(card => (card.types?.join() === filterTypeValue && card.subtype === filterSubtypeValue)).map(card => {
+        {
+            return (
+                <PokemonCard
+                    imageUrl={card.imageUrl}
+                    name={card.name}
+                    artist={card.artist}
+                    key={card.id}
+                />
+            )
+        }
+    })
+
+
+    let currentPageCards = filteredCard.slice(currentPage-1, currentPage+3)
 
 
     return (
+
         <div className={styles.wrap}>
+            {popupMode && <Popup/>}
             <div className={styles.mainBar}>
                 <button onClick={logoutHandler}>Logout</button>
             </div>
             <div className={styles.mainContent}>
                 <div className={styles.selectsBar}>
                     <select className={styles.types} onChange={selectTypeHandler}>
+                        <option>Choose type</option>
                         {
                             types.map(type => {
                                 return (
@@ -79,6 +129,7 @@ export const MainScreen = () => {
                         }
                     </select>
                     <select className={styles.subtypes} onChange={selectSubtypeHandler}>
+                        <option>Choose subtype</option>
                         {
                             subtypes.map(subtype => {
                                 return (
@@ -87,23 +138,31 @@ export const MainScreen = () => {
                             })
                         }
                     </select>
-                </div>
-                <div className={styles.cards}>
-                    <div className={styles.cardsItems}>
+                    <select className={styles.subtypes} onChange={selectSupertypeHandler}>
+                        <option>Choose supertypes</option>
                         {
-                            cards.map(card => {
-                                if ( card.subtype === filterSubtypeValue ){
-                                    return (
-                                        <PokemonCard
-                                            imageUrl={card.imageUrl}
-                                            name={card.name}
-                                            artist={card.artist}
-                                        />
-                                    )
-                                }
+                            supertypes.map(supertype => {
+                                return (
+                                    <option>{supertype}</option>
+                                )
                             })
                         }
+                    </select>
+                </div>
+                <div className={styles.cards}>
+                    {(filterTypeValue === '' || filterSubtypeValue === '') &&
+                    <div className={styles.first}>Choose pokemon type and subtype</div>}
+                    <div className={styles.cardsItems}>
+                        {
+                            currentPageCards
+                        }
                     </div>
+                    {(filterTypeValue !== '' && filterSubtypeValue !== '') && <Pagination
+                        changePageNumber={setCurrentPage}
+                        currentPage={currentPage}
+                        itemsOnPage={4}
+                        totalItems={filteredCard.length}
+                    />}
                 </div>
             </div>
         </div>

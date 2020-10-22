@@ -6,6 +6,7 @@
     align-items: center;
     width: 1032px;
     max-width: 1032px;
+    position: relative;
 }
 
 .mainBar {
@@ -65,18 +66,27 @@
 }
 
 .cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     width: 684px;
     height: 100%;
     background-color: #FAFAFA;
-    padding: 58px 86px 333px 86px;
+    padding: 30px 86px 30px 86px;
 }
 
 .cardsItems {
-    height: 491px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.first {
+    text-align: center;
+    font-size: 28px;
 }
 
 @media screen and (max-width:1032px ) {

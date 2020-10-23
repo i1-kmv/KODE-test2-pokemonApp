@@ -45,9 +45,8 @@
 
 .profileContent__image img {
     display: block;
-    width: 622px;
-    max-width: 622px;
-    height: 438px;
+    width: 422px;
+    height:638px;
     margin-bottom: 61px;
     background-color: #C4C4C4;
 }

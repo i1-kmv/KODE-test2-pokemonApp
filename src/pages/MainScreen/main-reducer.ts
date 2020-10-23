@@ -26,8 +26,8 @@ export const mainReducer = (state: any = initialState, action: ActionsType): any
             return {...state, types: action.types}
         case 'MAIN/SET-SUBTYPES':
             return {...state, subtypes: action.subtypes}
-        case 'MAIN/SET-SUPERTYPES':
-            return {...state, supertypes: action.supertypes}
+        // case 'MAIN/SET-SUPERTYPES':
+        //     return {...state, supertypes: action.supertypes}
         case 'MAIN/SET-TYPE-FILTER':
             return {...state, filterTypeValue: action.filterTypeValue}
         case 'MAIN/SET-SUBTYPE-FILTER':
@@ -51,8 +51,8 @@ export const mainReducer = (state: any = initialState, action: ActionsType): any
 export const setCardsAC = (cards: Array<CardType>) => ({ type: 'MAIN/SET-CARDS', cards } as const)
 export const setTypesAC = (types: Array<string>) => ({ type: 'MAIN/SET-TYPES', types } as const)
 export const setSubTypesAC = (subtypes: Array<string>) => ({ type: 'MAIN/SET-SUBTYPES', subtypes } as const)
-export const setSupertypesAC = (supertypes: Array<string>) => ({ type: 'MAIN/SET-SUPERTYPES', supertypes } as const)
-export const setTypeFilterAC = (filterTypeValue: Array<string>) => ({ type: 'MAIN/SET-TYPE-FILTER', filterTypeValue } as const)
+// export const setSupertypesAC = (supertypes: Array<string>) => ({ type: 'MAIN/SET-SUPERTYPES', supertypes } as const)
+export const setTypeFilterAC = (filterTypeValue: any) => ({ type: 'MAIN/SET-TYPE-FILTER', filterTypeValue } as const)
 export const setSubtypeFilterAC = (filterSubtypeValue: string) => ({ type: 'MAIN/SET-SUBTYPE-FILTER', filterSubtypeValue } as const)
 export const setSupertypeFilterAC = (filterSupertypeValue: string) => ({ type: 'MAIN/SET-SUPERTYPE-FILTER', filterSupertypeValue } as const)
 export const setPopupModeAC = () => ({ type: 'MAIN/SET-POPUP-MODE'} as const)
@@ -97,17 +97,17 @@ export const getSubTypesTC = () => (dispatch: Dispatch) => {
 
 }
 
-
-export const getSuperTypesTC = () => (dispatch: Dispatch) => {
-
-    pokemonApi.getSuperTypes()
-        .then((res) => {
-            dispatch(setSupertypesAC(res))
-        }).catch(err => {
-        alert('you bad developer')
-    })
-
-}
+//
+// export const getSuperTypesTC = () => (dispatch: Dispatch) => {
+//
+//     pokemonApi.getSuperTypes()
+//         .then((res) => {
+//             dispatch(setSupertypesAC(res))
+//         }).catch(err => {
+//         alert('you bad developer')
+//     })
+//
+// }
 
 
 //Types
@@ -117,7 +117,7 @@ type ActionsType =
     | ReturnType<typeof setCardsAC>
     | ReturnType<typeof setTypesAC>
     | ReturnType<typeof setSubTypesAC>
-    | ReturnType<typeof setSupertypesAC>
+    // | ReturnType<typeof setSupertypesAC>
     | ReturnType<typeof setTypeFilterAC>
     | ReturnType<typeof setSubtypeFilterAC>
     | ReturnType<typeof setSupertypeFilterAC>

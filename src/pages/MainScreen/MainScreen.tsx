@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {
     fetchCardsTC,
     getSubTypesTC,
-    getSuperTypesTC,
+    // getSuperTypesTC,
     getTypesTC,
     setSubtypeFilterAC, setSupertypeFilterAC,
     setTypeFilterAC
@@ -20,20 +20,23 @@ import Pagination from "../../components/Pagination/Pagination"
 
 
 
+
 export const MainScreen = () => {
 
-
-    let [currentPage, setCurrentPage] = useState(1)
+    let init = Number(localStorage.getItem('currentPage'))
+    let [currentPage, setCurrentPage] = useState(init)
+    localStorage.setItem('currentPage', JSON.stringify(currentPage))
 
 
     const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.main.cards)
     const types = useSelector<AppRootStateType, Array<string>>(state => state.main.types)
     const subtypes = useSelector<AppRootStateType, Array<string>>(state => state.main.subtypes)
-    const supertypes = useSelector<AppRootStateType, Array<string>>(state => state.main.supertypes)
+    // const supertypes = useSelector<AppRootStateType, Array<string>>(state => state.main.supertypes)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const profileMode = useSelector<AppRootStateType, boolean>(state => state.profile.profileMode)
     const filterTypeValue = useSelector<AppRootStateType, string>(state => state.main.filterTypeValue)
     const filterSubtypeValue = useSelector<AppRootStateType, string>(state => state.main.filterSubtypeValue)
-    const filterSupertypeValue = useSelector<AppRootStateType, string>(state => state.main.filterSupertypeValue)
+    //const filterSupertypeValue = useSelector<AppRootStateType, string>(state => state.main.filterSupertypeValue)
     const popupMode = useSelector<AppRootStateType, boolean>(state => state.main.popupMode)
 
 
@@ -58,10 +61,10 @@ export const MainScreen = () => {
     }, [])
 
 
-    useEffect(() => {
-        const thunk = getSuperTypesTC()
-        dispatch(thunk)
-    }, [])
+    // useEffect(() => {
+    //     const thunk = getSuperTypesTC()
+    //     dispatch(thunk)
+    // }, [])
 
 
     const logoutHandler = useCallback(() => {
@@ -72,22 +75,29 @@ export const MainScreen = () => {
     const selectTypeHandler = (e: any) => {
         let newValue = e.currentTarget.value
         dispatch(setTypeFilterAC(newValue))
+        localStorage.setItem('TypeValue', JSON.stringify(newValue))
     }
 
 
     const selectSubtypeHandler = (e: any) => {
         let newValue = e.currentTarget.value
         dispatch(setSubtypeFilterAC(newValue))
+        localStorage.setItem('SubtypeValue', JSON.stringify(newValue))
     }
 
 
-    const selectSupertypeHandler = (e: any) => {
-        let newValue = e.currentTarget.value
-        dispatch(setSupertypeFilterAC(newValue))
+    // const selectSupertypeHandler = (e: any) => {
+    //     let newValue = e.currentTarget.value
+    //     dispatch(setSupertypeFilterAC(newValue))
+    // }
+
+
+    if (profileMode) {
+        return <Redirect to={'/profile'}/>
     }
 
 
-    if (isLoggedIn === false) {
+    if (!isLoggedIn) {
         return <Redirect to={'/'}/>
     }
 
@@ -96,6 +106,7 @@ export const MainScreen = () => {
         {
             return (
                 <PokemonCard
+                    id={card.id}
                     imageUrl={card.imageUrl}
                     name={card.name}
                     artist={card.artist}
@@ -138,16 +149,16 @@ export const MainScreen = () => {
                             })
                         }
                     </select>
-                    <select className={styles.subtypes} onChange={selectSupertypeHandler}>
-                        <option>Choose supertypes</option>
-                        {
-                            supertypes.map(supertype => {
-                                return (
-                                    <option>{supertype}</option>
-                                )
-                            })
-                        }
-                    </select>
+                    {/*<select className={styles.subtypes} onChange={selectSupertypeHandler}>*/}
+                    {/*    <option>Choose supertypes</option>*/}
+                    {/*    {*/}
+                    {/*        supertypes.map(supertype => {*/}
+                    {/*            return (*/}
+                    {/*                <option>{supertype}</option>*/}
+                    {/*            )*/}
+                    {/*        })*/}
+                    {/*    }*/}
+                    {/*</select>*/}
                 </div>
                 <div className={styles.cards}>
                     {(filterTypeValue === '' || filterSubtypeValue === '') &&

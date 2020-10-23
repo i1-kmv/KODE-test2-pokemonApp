@@ -92,5 +92,6 @@ export type CardType = {
     types?: Array<string>
     subtype?: string
     supertype?: string
-    id?:string
+    id:string
+    imageUrlHiRes?: any
 }

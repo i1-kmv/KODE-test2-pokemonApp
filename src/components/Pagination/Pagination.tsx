@@ -10,6 +10,7 @@ type PropsType = {
 
 const Pagination: React.FC<PropsType> = ({currentPage, itemsOnPage, totalItems, changePageNumber}) => {
 
+
     let pagesCount = Math.ceil(totalItems / itemsOnPage);
     let firstPage = currentPage - 2;
     let lastPage = currentPage + 2;

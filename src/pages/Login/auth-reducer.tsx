@@ -5,9 +5,8 @@ import {setAppErrorAC, setAppIsInitializedAC} from "../../app/app-reducer"
 
 
 
-
 const initialState: InitialStateType = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     isConfirm: false,
 }
 
@@ -18,7 +17,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
         case 'login/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}
         case 'APP/SET-IS-CONFIRMED':
-            return {...state, isConfirm: action.value }
+            return {...state, isConfirm: action.value}
         default:
             return state
     }
@@ -30,7 +29,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 
 
 export const setIsLoggedInAC = (value: boolean) => ({type: 'login/SET-IS-LOGGED-IN', value} as const)
-export const setAppIsConfirmedAC = (value:  boolean) => ({ type: 'APP/SET-IS-CONFIRMED', value } as const)
+export const setAppIsConfirmedAC = (value: boolean) => ({type: 'APP/SET-IS-CONFIRMED', value} as const)
 
 
 //thunks
@@ -41,6 +40,7 @@ export const loginTC = (data: FormikErrorType) => (dispatch: Dispatch) => {
     authApi.login_mock(data)
         .then(res => {
             dispatch(setIsLoggedInAC(true))
+            localStorage.setItem('isLoggedIn', JSON.stringify(true))
         }).catch(err => {
         dispatch(setAppIsInitializedAC(true))
         dispatch(setAppErrorAC(err))
@@ -49,13 +49,13 @@ export const loginTC = (data: FormikErrorType) => (dispatch: Dispatch) => {
 }
 
 
-export const logoutTC = ( ) => (dispatch: Dispatch) => {
+export const logoutTC = () => (dispatch: Dispatch) => {
 
     authApi.logout__mock()
         .then(res => {
-            console.log(res)
             dispatch(setIsLoggedInAC(false))
             dispatch(setAppIsConfirmedAC(false))
+            localStorage.setItem('isLoggedIn', JSON.stringify(false))
         })
 
 }

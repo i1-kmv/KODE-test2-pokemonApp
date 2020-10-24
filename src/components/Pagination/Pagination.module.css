@@ -14,14 +14,15 @@
     min-width: 36px;
     height: 34px;
     margin: 3px;
-    border-bottom: #4546a5 1px solid;
+    border-bottom: 1px solid #4546a5;
     border-radius: 5px;
     background-color: #fff;
+    outline-style: none;
   }
 
 .pagination__btn_active {
     font-weight: bold;
-    border-color: #4546a5
+    border-color: orange
   }
 
 .pagination__space {

@@ -5,9 +5,8 @@ import {useDispatch, useSelector} from "react-redux"
 import {
     fetchCardsTC,
     getSubTypesTC,
-    // getSuperTypesTC,
     getTypesTC,
-    setSubtypeFilterAC, setSupertypeFilterAC,
+    setSubtypeFilterAC,
     setTypeFilterAC
 } from "./main-reducer"
 import {AppRootStateType} from "../../app/store"
@@ -25,20 +24,19 @@ export const MainScreen = () => {
 
     let init = Number(localStorage.getItem('currentPage'))
     let [currentPage, setCurrentPage] = useState(init)
+
+
     localStorage.setItem('currentPage', JSON.stringify(currentPage))
 
 
     const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.main.cards)
     const types = useSelector<AppRootStateType, Array<string>>(state => state.main.types)
     const subtypes = useSelector<AppRootStateType, Array<string>>(state => state.main.subtypes)
-    // const supertypes = useSelector<AppRootStateType, Array<string>>(state => state.main.supertypes)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const profileMode = useSelector<AppRootStateType, boolean>(state => state.profile.profileMode)
     const filterTypeValue = useSelector<AppRootStateType, string>(state => state.main.filterTypeValue)
     const filterSubtypeValue = useSelector<AppRootStateType, string>(state => state.main.filterSubtypeValue)
-    //const filterSupertypeValue = useSelector<AppRootStateType, string>(state => state.main.filterSupertypeValue)
     const popupMode = useSelector<AppRootStateType, boolean>(state => state.main.popupMode)
-
 
     const dispatch = useDispatch()
 
@@ -61,12 +59,6 @@ export const MainScreen = () => {
     }, [])
 
 
-    // useEffect(() => {
-    //     const thunk = getSuperTypesTC()
-    //     dispatch(thunk)
-    // }, [])
-
-
     const logoutHandler = useCallback(() => {
         dispatch(logoutTC())
     }, [])
@@ -75,21 +67,25 @@ export const MainScreen = () => {
     const selectTypeHandler = (e: any) => {
         let newValue = e.currentTarget.value
         dispatch(setTypeFilterAC(newValue))
-        localStorage.setItem('TypeValue', JSON.stringify(newValue))
+        localStorage.setItem('TypeValue', newValue)
     }
 
 
     const selectSubtypeHandler = (e: any) => {
         let newValue = e.currentTarget.value
         dispatch(setSubtypeFilterAC(newValue))
-        localStorage.setItem('SubtypeValue', JSON.stringify(newValue))
+        localStorage.setItem('SubtypeValue', newValue)
     }
 
+    useEffect( ()=> {
+        let type = localStorage.getItem('TypeValue')
+        dispatch(setTypeFilterAC(type || ''))
+    },[] )
 
-    // const selectSupertypeHandler = (e: any) => {
-    //     let newValue = e.currentTarget.value
-    //     dispatch(setSupertypeFilterAC(newValue))
-    // }
+    useEffect( ()=> {
+        let subtype = localStorage.getItem('SubtypeValue')
+        dispatch(setSubtypeFilterAC(subtype || ''))
+    },[] )
 
 
     if (profileMode) {
@@ -129,36 +125,26 @@ export const MainScreen = () => {
             </div>
             <div className={styles.mainContent}>
                 <div className={styles.selectsBar}>
-                    <select className={styles.types} onChange={selectTypeHandler}>
-                        <option>Choose type</option>
+                    <select className={styles.types} onChange={selectTypeHandler} value={filterTypeValue}>
+
                         {
                             types.map(type => {
                                 return (
-                                    <option>{type}</option>
+                                    <option key={type}>{type}</option>
                                 )
                             })
                         }
                     </select>
-                    <select className={styles.subtypes} onChange={selectSubtypeHandler}>
-                        <option>Choose subtype</option>
+                    <select className={styles.subtypes} onChange={selectSubtypeHandler} value={filterSubtypeValue}>
+
                         {
                             subtypes.map(subtype => {
                                 return (
-                                    <option>{subtype}</option>
+                                    <option key={subtype} >{subtype}</option>
                                 )
                             })
                         }
                     </select>
-                    {/*<select className={styles.subtypes} onChange={selectSupertypeHandler}>*/}
-                    {/*    <option>Choose supertypes</option>*/}
-                    {/*    {*/}
-                    {/*        supertypes.map(supertype => {*/}
-                    {/*            return (*/}
-                    {/*                <option>{supertype}</option>*/}
-                    {/*            )*/}
-                    {/*        })*/}
-                    {/*    }*/}
-                    {/*</select>*/}
                 </div>
                 <div className={styles.cards}>
                     {(filterTypeValue === '' || filterSubtypeValue === '') &&

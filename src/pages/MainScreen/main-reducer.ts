@@ -52,7 +52,7 @@ export const setCardsAC = (cards: Array<CardType>) => ({ type: 'MAIN/SET-CARDS',
 export const setTypesAC = (types: Array<string>) => ({ type: 'MAIN/SET-TYPES', types } as const)
 export const setSubTypesAC = (subtypes: Array<string>) => ({ type: 'MAIN/SET-SUBTYPES', subtypes } as const)
 // export const setSupertypesAC = (supertypes: Array<string>) => ({ type: 'MAIN/SET-SUPERTYPES', supertypes } as const)
-export const setTypeFilterAC = (filterTypeValue: any) => ({ type: 'MAIN/SET-TYPE-FILTER', filterTypeValue } as const)
+export const setTypeFilterAC = (filterTypeValue: string) => ({ type: 'MAIN/SET-TYPE-FILTER', filterTypeValue } as const)
 export const setSubtypeFilterAC = (filterSubtypeValue: string) => ({ type: 'MAIN/SET-SUBTYPE-FILTER', filterSubtypeValue } as const)
 export const setSupertypeFilterAC = (filterSupertypeValue: string) => ({ type: 'MAIN/SET-SUPERTYPE-FILTER', filterSupertypeValue } as const)
 export const setPopupModeAC = () => ({ type: 'MAIN/SET-POPUP-MODE'} as const)

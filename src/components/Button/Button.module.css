@@ -5,14 +5,14 @@
     width: 96px;
     height: 96px;
     border-radius: 50%;
-    background-color: #999999;
-    border: none;
+    background-color: orange;
+    border:2px solid;
     outline-style: none;
 }
 
 .button img {
-    width: 48px;
-    height: 48px;
+    width: 70%;
+    height: 70%;
 }
 
 .button:hover {

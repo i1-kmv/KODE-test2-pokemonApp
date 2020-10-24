@@ -4,10 +4,11 @@
     justify-content: space-between;
     align-items:start;
     width: 220px;
-    height:350px;
+    height:320px;
     padding: 8px;
     margin-bottom: 30px;
-    border: 2px solid black;
+    border: 2px solid orange;
+    border-radius: 10px;
 }
 
 .image {
@@ -27,7 +28,21 @@
     justify-content: space-between;
 }
 
+.buttons button{
+   background-color: orange;
+   border: none;
+   border-radius: 10px;
+   outline-style: none;
+    padding: 5px;
+}
 
+.buttons button:hover{
+    opacity: 0.8;
+}
+
+.buttons button:active{
+   color: gold;
+}
 
 @media screen and (max-width: 910px ) {
    .wrap {

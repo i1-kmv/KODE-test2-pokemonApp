@@ -5,9 +5,9 @@ import {MainScreen} from "../pages/MainScreen/MainScreen"
 import {PokemonProfile} from "../pages/PokemonProfile/PokemonProfile"
 import {Login} from "../pages/Login/Login"
 import { Switch, Route } from 'react-router-dom'
-import {useDispatch} from "react-redux";
-import {setAppIsConfirmedAC, setIsLoggedInAC} from "../pages/Login/auth-reducer";
-import {setTypeFilterAC} from "../pages/MainScreen/main-reducer";
+import {useDispatch} from "react-redux"
+import {setAppIsConfirmedAC, setIsLoggedInAC} from "../pages/Login/auth-reducer"
+
 
 
 
@@ -22,7 +22,7 @@ function App() {
             dispatch(setIsLoggedInAC(true))
             dispatch(setAppIsConfirmedAC(true))
         }
-        localStorage.setItem('currentPage', JSON.stringify(1))
+        // localStorage.setItem('currentPage', JSON.stringify(1))
     },[] )
     
   return (

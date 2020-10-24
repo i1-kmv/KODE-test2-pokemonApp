@@ -1,9 +1,10 @@
-import React from "react"
+import React, {useCallback} from "react"
 import styles from './PokemonProfile.module.css'
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../app/store"
 import {getCardAC, setProfileModeAC} from "./profile-reducer"
 import {Redirect} from "react-router-dom";
+import {logoutTC} from "../Login/auth-reducer";
 
 
 
@@ -21,6 +22,11 @@ export const PokemonProfile = () => {
     }
 
 
+    const logoutHandler = useCallback(() => {
+        dispatch(logoutTC())
+    }, [])
+
+
     if (!profileMode) {
 
         return <Redirect to={'/main'}/>
@@ -33,7 +39,7 @@ export const PokemonProfile = () => {
                 <div key={el.id} className={styles.wrap}>
                     <div className={styles.profileBar}>
                         <button onClick={onBackHandler}>Back</button>
-                        <button>Logout</button>
+                        <button onClick={logoutHandler}>Logout</button>
                     </div>
                     <div className={styles.profileContent}>
                         <div className={styles.profileContent__image}>
@@ -51,7 +57,7 @@ export const PokemonProfile = () => {
                             <div className={styles.description__char}>
                                 <div>attackDamage: {el.attacks[0].damage}</div>
                                 <div>attackCost: {el.attacks[0].cost}</div>
-                                <div>resistances: type:{el.resistances[0].type} value:{el.resistances[0].value} </div>
+                                {/*<div>resistances: type:{el.resistances[0].type} value:{el.resistances[0].value} </div>*/}
                                 <div>evolvesFrom: {el.evolvesFrom || 'no data'}</div>
                             </div>
                         </div>

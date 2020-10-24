@@ -5,6 +5,7 @@ import {setAppErrorAC, setAppIsInitializedAC} from "../../app/app-reducer"
 
 
 
+
 const initialState: InitialStateType = {
     isLoggedIn: false,
     isConfirm: false,
@@ -56,6 +57,9 @@ export const logoutTC = () => (dispatch: Dispatch) => {
             dispatch(setIsLoggedInAC(false))
             dispatch(setAppIsConfirmedAC(false))
             localStorage.setItem('isLoggedIn', JSON.stringify(false))
+            localStorage.setItem('currentPage', JSON.stringify(1))
+            localStorage.setItem('TypeValue', '')
+            localStorage.setItem('SubtypeValue', '')
         })
 
 }

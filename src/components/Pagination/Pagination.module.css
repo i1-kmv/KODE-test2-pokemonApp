@@ -5,6 +5,7 @@
 
 .pagination__pages {
     display: inline-flex;
+    justify-content: center;
     flex-wrap: wrap;
   }
 

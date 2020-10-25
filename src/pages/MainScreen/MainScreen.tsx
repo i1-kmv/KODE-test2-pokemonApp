@@ -10,7 +10,7 @@ import {
     setTypeFilterAC
 } from "./main-reducer"
 import {AppRootStateType} from "../../app/store"
-import {CardType} from "../../api/pokemon-api"
+import {CardType, pokemonApi} from "../../api/pokemon-api"
 import {Redirect} from 'react-router-dom'
 import {logoutTC} from "../Login/auth-reducer"
 import {Popup} from "../../components/Popup/Popup"
@@ -20,7 +20,11 @@ import Pagination from "../../components/Pagination/Pagination"
 
 
 
+
+
 export const MainScreen = () => {
+
+
 
     let init = Number(localStorage.getItem('currentPage'))
     let [currentPage, setCurrentPage] = useState(init)
@@ -38,25 +42,16 @@ export const MainScreen = () => {
     const filterSubtypeValue = useSelector<AppRootStateType, string>(state => state.main.filterSubtypeValue)
     const popupMode = useSelector<AppRootStateType, boolean>(state => state.main.popupMode)
 
+
     const dispatch = useDispatch()
 
 
     useEffect(() => {
-        const thunk = fetchCardsTC()
-        dispatch(thunk)
+        dispatch(fetchCardsTC())
+        dispatch(getTypesTC())
+        dispatch(getSubTypesTC())
     }, [])
 
-
-    useEffect(() => {
-        const thunk = getTypesTC()
-        dispatch(thunk)
-    }, [])
-
-
-    useEffect(() => {
-        const thunk = getSubTypesTC()
-        dispatch(thunk)
-    }, [])
 
 
     const logoutHandler = useCallback(() => {
@@ -77,10 +72,12 @@ export const MainScreen = () => {
         localStorage.setItem('SubtypeValue', newValue)
     }
 
+
     useEffect( ()=> {
         let type = localStorage.getItem('TypeValue')
         dispatch(setTypeFilterAC(type || ''))
     },[] )
+
 
     useEffect( ()=> {
         let subtype = localStorage.getItem('SubtypeValue')

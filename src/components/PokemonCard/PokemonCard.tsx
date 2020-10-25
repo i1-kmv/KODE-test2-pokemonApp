@@ -1,18 +1,22 @@
 import React, {useCallback} from "react"
 import styles from './PokemonCard.module.css'
 import {CardType} from "../../api/pokemon-api"
-import {useDispatch, useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import {setPopupModeAC, setPopupSrcAC} from "../../pages/MainScreen/main-reducer"
-import {AppRootStateType} from "../../app/store";
 import {fetchCardTC, setProfileModeAC} from "../../pages/PokemonProfile/profile-reducer";
 
 
+type PropsType = {
+    imageUrl: string
+    id: string
+    name: string | undefined
+    artist: string | undefined
+}
 
 
+export const PokemonCard = (props: PropsType) => {
 
-export const PokemonCard = (props: CardType) => {
 
-    const profileMode = useSelector<AppRootStateType, boolean>(state => state.profile.profileMode)
     const dispatch = useDispatch()
 
 
@@ -23,8 +27,10 @@ export const PokemonCard = (props: CardType) => {
 
 
     let profileHandler = useCallback(() => {
-        dispatch(setProfileModeAC(!profileMode))
+        dispatch(setProfileModeAC(true))
+        localStorage.setItem('profileMode', JSON.stringify(true))
         dispatch(fetchCardTC(props.id))
+        localStorage.setItem('profileId', props.id)
     }, [])
 
 

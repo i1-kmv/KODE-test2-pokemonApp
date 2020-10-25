@@ -1,5 +1,6 @@
 .wrap {
     height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -93,11 +94,10 @@
 }
 
 .cardsItems {
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 20px;
 }
 
 .first {
@@ -107,37 +107,28 @@
 
 @media screen and (max-width:1032px ) {
     .wrap {
-        width: 96%;
+        width: 100%;
     }
-}
-
-@media screen and (max-width:768px ) {
-    .cards {
-        padding: 29px 43px 333px 43px;
-    }
-}
-
-@media screen and (max-width:680px ) {
-    .mainContent {
-        flex-direction: column;
-    }
-
     .mainBar {
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
         margin-bottom: 15px;
     }
-
     .selectsBar {
+        border-radius: 0px;
         width: 100%;
         margin-bottom: 15px;
         padding-top: 20px;
         padding-bottom: 20px;
     }
-
     .cards {
+        border-radius: 0px;
         width: 100%;
-        padding: 20px 20px 333px 20px;
+        padding: 20px 20px 20px 20px;
     }
-
+    .mainContent {
+        flex-direction: column;
+    }
     .cardsItems {
         justify-content: center;
         height: 100%;
@@ -147,6 +138,25 @@
         margin-bottom: 10px;
     }
 }
+
+@media screen and (max-width:768px ) {
+    .cards {
+        padding: 29px 43px 20px 43px;
+    }
+}
+
+@media screen and (max-width:768px ) {
+    .cards {
+        padding: 29px 13px 20px 13px;
+    }
+}
+
+@media screen and (max-width:610px ) {
+    .cards .cardsItems{
+        order: 1;
+    }
+}
+
 
 
 

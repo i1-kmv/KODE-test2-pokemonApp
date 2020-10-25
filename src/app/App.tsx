@@ -7,6 +7,8 @@ import {Login} from "../pages/Login/Login"
 import { Switch, Route } from 'react-router-dom'
 import {useDispatch} from "react-redux"
 import {setAppIsConfirmedAC, setIsLoggedInAC} from "../pages/Login/auth-reducer"
+import {setProfileModeAC} from "../pages/PokemonProfile/profile-reducer";
+
 
 
 
@@ -22,8 +24,17 @@ function App() {
             dispatch(setIsLoggedInAC(true))
             dispatch(setAppIsConfirmedAC(true))
         }
-        // localStorage.setItem('currentPage', JSON.stringify(1))
     },[] )
+
+
+    useEffect( ()=> {
+        let isProfileModeIn = localStorage.getItem('profileMode')
+        if (isProfileModeIn === 'true') {
+            dispatch(setProfileModeAC(true))
+        }
+    },[] )
+
+
     
   return (
 

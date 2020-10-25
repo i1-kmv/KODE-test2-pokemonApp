@@ -1,13 +1,13 @@
 import {Dispatch} from "redux"
-import {pokemonApi} from "../../api/pokemon-api"
+import {CardType, pokemonApi} from "../../api/pokemon-api"
+import {setAppErrorAC, setAppIsInitializedAC} from "../../app/app-reducer";
 
 
 
 
 const initialState: any = {
     profileMode: false,
-    card: []
-
+    card: null
 }
 
 
@@ -21,7 +21,6 @@ export const profileReducer = (state: any = initialState, action: ActionsType): 
         default:
             return {...state}
     }
-
 }
 
 
@@ -37,12 +36,12 @@ export const getCardAC = (card: any) => ({ type: 'PROFILE/GET-CARD', card } as c
 
 export const fetchCardTC = (id:string) => (dispatch: Dispatch) => {
 
-    pokemonApi.getCards()
+    pokemonApi.getCard(id)
         .then((res) => {
-            let card = res.filter(res => res.id === id)
-            dispatch(getCardAC(card))
+            dispatch(getCardAC(res.data.card))
         }).catch(err => {
-        alert('you bad developer')
+        dispatch(setAppIsInitializedAC(true))
+        dispatch(setAppErrorAC(err))
     })
 
 }

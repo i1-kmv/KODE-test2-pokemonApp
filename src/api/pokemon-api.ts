@@ -1,26 +1,40 @@
 import axios from 'axios'
 import {FormikErrorType} from "../pages/Login/Login"
-import {PokemonTCG} from "pokemon-tcg-sdk-typescript";
-import {Meta} from "pokemon-tcg-sdk-typescript/dist/classes/meta";
 
+
+
+
+const settings = {
+   params: {
+        'Page-Size': 1000,
+        'Count': 1000,
+        'Total-Count': 9320,
+    }
+}
+
+
+const Instance = axios.create({
+    baseURL: 'https://api.pokemontcg.io/v1',
+    ...settings
+})
 
 
 
 export const pokemonApi = {
     getCards() {
-       const promise = PokemonTCG.Card.all()
+       const promise = Instance.get('/cards')
+        return promise
+    },
+    getCard(id:string) {
+        const promise = Instance.get(`/cards/${id}`)
         return promise
     },
     getTypes(){
-        const promise = Meta.allTypes()
+        const promise = Instance.get('/types')
         return promise
     },
     getSubTypes(){
-        const promise = Meta.allSubtypes()
-        return promise
-    },
-    getSuperTypes(){
-        const promise = Meta.allSupertypes()
+        const promise =Instance.get('/subtypes')
         return promise
     }
 }
@@ -29,7 +43,7 @@ export const pokemonApi = {
 //Создал фэйковое айпи для имитации post запросов на
 
 
-const settings = {
+const fakeSettings = {
     withCredentials: true,
     headers: {
         'Page-Size': '4',
@@ -41,7 +55,7 @@ const settings = {
 
 const fakeInstance = axios.create({
     baseURL: 'some/fake/api/',
-    ...settings
+    ...fakeSettings
 })
 
 
@@ -86,12 +100,50 @@ export const authApi = {
 
 
 export type CardType = {
-    imageUrl: string
-    name: string
-    artist: string
-    types?: Array<string>
-    subtype?: string
-    supertype?: string
-    id:string
-    imageUrlHiRes?: any
+    ability?: IAbility;
+    artist: string;
+    attacks?: IAttack[];
+    convertedRetreatCost?: number;
+    evolvesFrom?: string;
+    hp?: string;
+    id: string;
+    imageUrl: string;
+    imageUrlHiRes?: string;
+    name?: string;
+    nationalPokedexNumber?: number;
+    number?: string;
+    rarity?: string;
+    retreatCost?: string[];
+    series?: string;
+    set?: string;
+    setCode?: string;
+    subtype: string;
+    supertype?: string;
+    text: string[];
+    types: string[];
+    weaknesses?: IWeakness[];
+}
+
+export type IAbility = {
+    name: string;
+    text: string;
+    type: string;
+}
+
+export type IAttack = {
+    ost: string[];
+    name: string;
+    text: string;
+    damage: string;
+    convertedEnergyCost: string;
+}
+
+export type IResistance =  {
+    type: string;
+    value: string;
+}
+
+export type IWeakness =  {
+    type: string;
+    value: string;
 }

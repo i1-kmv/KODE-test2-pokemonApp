@@ -10,29 +10,41 @@
 
 .profileBar {
     width: 100%;
-    background-color: #EBEBEB;
+    background-color:rgba(255,255,204,1);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 13px 34px 27px 21px;
     margin-bottom: 30px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .profileBar button{
     border: none;
     font-size: 18px;
     line-height: 21px;
-    background-color: #EBEBEB;
+    background-color:rgba(255,255,204,1);
 }
 
 .profileBar button:hover {
     cursor: pointer;
+    background-color: orange;
+    border-radius: 10px;
+}
+
+.profileBar button:active {
+    color: gold;
+    outline-style: none;
 }
 
 .profileContent {
     width: 100%;
     display: flex;
     justify-content: flex-start;
+    padding: 30px 20px;
+    background-color:rgba(255,255,204,1);
+    border-radius: 10px;
 }
 
 .profileContent__image {
@@ -83,10 +95,25 @@
      margin-bottom: 23px;
 }
 
+.bold {
+    font-weight: 800;
+}
+
 @media screen and (max-width:1032px ) {
     .wrap {
         width: 100%;
     }
+
+    .profileBar {
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .profileContent {
+        width: 90%;
+    }
+
+
 }
 
 @media screen and (max-width:915px ) {
@@ -94,7 +121,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 90%;
     }
 
     .profileContent__image {

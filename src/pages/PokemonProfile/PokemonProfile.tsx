@@ -3,15 +3,16 @@ import styles from './PokemonProfile.module.css'
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../app/store"
 import {fetchCardTC, getCardAC, setProfileModeAC} from "./profile-reducer"
-import {Redirect} from "react-router-dom";
-import {logoutTC} from "../Login/auth-reducer";
-import CircularIndeterminate from "../../utils/Loader";
+import {Redirect} from "react-router-dom"
+import {logoutTC} from "../Login/auth-reducer"
+import CircularIndeterminate from "../../utils/Loader"
+import {CardType} from "../../api/pokemon-api"
 
 
 export const PokemonProfile = () => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
-    const card = useSelector<AppRootStateType, any>(state => state.profile.card)
+    const card = useSelector<AppRootStateType, CardType>(state => state.profile.card)
     const profileMode = useSelector<AppRootStateType, boolean>(state => state.profile.profileMode)
     const dispatch = useDispatch()
 

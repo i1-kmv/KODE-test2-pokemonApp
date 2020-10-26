@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect, useState} from "react"
+import React, {ChangeEvent, useCallback, useEffect, useState} from "react"
 import styles from './MainScreen.module.css'
 import {PokemonCard} from "../../components/PokemonCard/PokemonCard"
 import {useDispatch, useSelector} from "react-redux"
 import {
     fetchCardsTC,
     getSubTypesTC,
-    getTypesTC,
+    getTypesTC, setPageAC,
     setSubtypeFilterAC,
     setTypeFilterAC
 } from "./main-reducer"
@@ -20,17 +20,8 @@ import Pagination from "../../components/Pagination/Pagination"
 
 
 
-
-
 export const MainScreen = () => {
 
-
-
-    let init = Number(localStorage.getItem('currentPage'))
-    let [currentPage, setCurrentPage] = useState(init)
-
-
-    localStorage.setItem('currentPage', JSON.stringify(currentPage))
 
 
     const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.main.cards)
@@ -41,6 +32,8 @@ export const MainScreen = () => {
     const filterTypeValue = useSelector<AppRootStateType, string>(state => state.main.filterTypeValue)
     const filterSubtypeValue = useSelector<AppRootStateType, string>(state => state.main.filterSubtypeValue)
     const popupMode = useSelector<AppRootStateType, boolean>(state => state.main.popupMode)
+    const totalCount = useSelector<AppRootStateType, number>(state => state.main.totalCount)
+    const page = useSelector<AppRootStateType, number>(state => state.main.page)
 
 
     const dispatch = useDispatch()
@@ -54,35 +47,46 @@ export const MainScreen = () => {
 
 
 
-    const logoutHandler = useCallback(() => {
+    useEffect(() => {
+        dispatch(fetchCardsTC())
+    }, [page, filterTypeValue, filterSubtypeValue])
+
+
+
+    useEffect( ()=> {
+        let type = localStorage.getItem('TypeValue')
+        dispatch(setTypeFilterAC(type || ''))
+        let subtype = localStorage.getItem('SubtypeValue')
+        dispatch(setSubtypeFilterAC(subtype || ''))
+        let pageNumber = Number(localStorage.getItem('currentPage'))
+        dispatch(setPageAC(pageNumber))
+    },[] )
+
+
+
+    const logoutHandler = () => {
         dispatch(logoutTC())
-    }, [])
+    }
 
 
-    const selectTypeHandler = (e: any) => {
+    const selectTypeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
         let newValue = e.currentTarget.value
         dispatch(setTypeFilterAC(newValue))
         localStorage.setItem('TypeValue', newValue)
     }
 
 
-    const selectSubtypeHandler = (e: any) => {
+    const selectSubtypeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
         let newValue = e.currentTarget.value
         dispatch(setSubtypeFilterAC(newValue))
         localStorage.setItem('SubtypeValue', newValue)
     }
 
 
-    useEffect( ()=> {
-        let type = localStorage.getItem('TypeValue')
-        dispatch(setTypeFilterAC(type || ''))
-    },[] )
-
-
-    useEffect( ()=> {
-        let subtype = localStorage.getItem('SubtypeValue')
-        dispatch(setSubtypeFilterAC(subtype || ''))
-    },[] )
+    const changePageNumber = useCallback((page: number) => {
+        dispatch(setPageAC(page))
+        localStorage.setItem('currentPage', page.toString() )
+    }, [])
 
 
     if (profileMode) {
@@ -95,7 +99,7 @@ export const MainScreen = () => {
     }
 
 
-    let filteredCard = cards.filter(card => (card.types?.join() === filterTypeValue && card.subtype === filterSubtypeValue)).map(card => {
+    let finalCards = cards.map(card => {
         {
             return (
                 <PokemonCard
@@ -110,7 +114,7 @@ export const MainScreen = () => {
     })
 
 
-    let currentPageCards = filteredCard.slice(currentPage-1, currentPage+3)
+
 
 
     return (
@@ -123,40 +127,28 @@ export const MainScreen = () => {
             <div className={styles.mainContent}>
                 <div className={styles.selectsBar}>
                     <select className={styles.types} onChange={selectTypeHandler} value={filterTypeValue}>
-
                         {
-                            types.map(type => {
-                                return (
-                                    <option key={type}>{type}</option>
-                                )
-                            })
+                            types.map(type => <option key={type}>{type}</option>)
                         }
                     </select>
                     <select className={styles.subtypes} onChange={selectSubtypeHandler} value={filterSubtypeValue}>
-
                         {
-                            subtypes.map(subtype => {
-                                return (
-                                    <option key={subtype} >{subtype}</option>
-                                )
-                            })
+                            subtypes.map(subtype => <option key={subtype} >{subtype}</option>)
                         }
                     </select>
                 </div>
                 <div className={styles.cards}>
-                    {(filterTypeValue === '' || filterSubtypeValue === '') &&
-                    <div className={styles.first}>Choose pokemon type and subtype</div>}
                     <div className={styles.cardsItems}>
                         {
-                            currentPageCards
+                            finalCards
                         }
                     </div>
-                    {(filterTypeValue !== '' && filterSubtypeValue !== '') && <Pagination
-                        changePageNumber={setCurrentPage}
-                        currentPage={currentPage}
+                     <Pagination
+                        changePageNumber={changePageNumber}
+                        currentPage={page}
                         itemsOnPage={4}
-                        totalItems={filteredCard.length}
-                    />}
+                        totalItems={totalCount}
+                    />
                 </div>
             </div>
         </div>

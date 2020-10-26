@@ -1,25 +1,27 @@
 import {Dispatch} from "redux"
 import {CardType, pokemonApi} from "../../api/pokemon-api"
 import {setAppErrorAC, setAppIsInitializedAC} from "../../app/app-reducer";
+import {AppRootStateType} from "../../app/store";
 
 
 
 
-const initialState: any = {
-    cards: [],
-    types: [],
-    subtypes: [],
-    supertypes: [],
+export type InitialStateType = typeof initialState
+
+const initialState = {
+    cards: [] as  Array<CardType>,
+    types: [] as  Array<string>,
+    subtypes: [] as  Array<string>,
     filterTypeValue: '',
     filterSubtypeValue: '',
-    filterSupertypeValue: '',
     popupMode: false,
     popupSrc: '',
-    totalCount: 0
+    totalCount: 0,
+    page: 1
 }
 
 
-export const mainReducer = (state: any = initialState, action: ActionsType): any => {
+export const mainReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
 
     switch (action.type) {
         case "MAIN/SET-CARDS":
@@ -38,6 +40,10 @@ export const mainReducer = (state: any = initialState, action: ActionsType): any
             return {...state, popupMode: !state.popupMode}
         case 'MAIN/SET-POPUP-SRC':
             return {...state, popupSrc: action.popupSrcValue}
+        case 'MAIN/SET-TOTAL-COUNT':
+            return {...state, totalCount: action.count}
+        case 'MAIN/SET-PAGE':
+            return {...state, page: action.page}
         default:
             return state
     }
@@ -55,17 +61,22 @@ export const setSubtypeFilterAC = (filterSubtypeValue: string) => ({ type: 'MAIN
 export const setSupertypeFilterAC = (filterSupertypeValue: string) => ({ type: 'MAIN/SET-SUPERTYPE-FILTER', filterSupertypeValue } as const)
 export const setPopupModeAC = () => ({ type: 'MAIN/SET-POPUP-MODE'} as const)
 export const setPopupSrcAC = (popupSrcValue: string) => ({ type: 'MAIN/SET-POPUP-SRC', popupSrcValue } as const)
+export const setTotalCountAC = (count: number) => ({ type: 'MAIN/SET-TOTAL-COUNT', count } as const)
+export const setPageAC = (page: number) => ({ type: 'MAIN/SET-PAGE', page } as const)
 
 
 //Thunks
 
 
-export const fetchCardsTC = () => (dispatch: Dispatch) => {
-
-    pokemonApi.getCards()
+export const fetchCardsTC = () => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    let state = getState().main
+    let page = state.page
+    let types = state.filterTypeValue
+    let subtype = state.filterSubtypeValue
+    pokemonApi.getCards(page, types, subtype)
         .then((res) => {
-            console.log(res.data)
             dispatch(setCardsAC(res.data.cards))
+            dispatch(setTotalCountAC(res.headers['total-count']))
         }).catch(err => {
         dispatch(setAppIsInitializedAC(true))
         dispatch(setAppErrorAC(err))
@@ -112,6 +123,8 @@ type ActionsType =
     | ReturnType<typeof setSupertypeFilterAC>
     | ReturnType<typeof setPopupModeAC>
     | ReturnType<typeof setPopupSrcAC>
+    | ReturnType<typeof setTotalCountAC>
+    | ReturnType<typeof setPageAC>
 
 
 

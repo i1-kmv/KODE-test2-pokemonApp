@@ -1,6 +1,5 @@
 import React, {useCallback} from "react"
 import styles from './PokemonCard.module.css'
-import {CardType} from "../../api/pokemon-api"
 import {useDispatch} from "react-redux"
 import {setPopupModeAC, setPopupSrcAC} from "../../pages/MainScreen/main-reducer"
 import {fetchCardTC, setProfileModeAC} from "../../pages/PokemonProfile/profile-reducer";

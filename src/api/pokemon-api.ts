@@ -4,37 +4,29 @@ import {FormikErrorType} from "../pages/Login/Login"
 
 
 
-const settings = {
-   params: {
-        'Page-Size': 1000,
-        'Count': 1000,
-        'Total-Count': 9320,
-    }
-}
 
 
 const Instance = axios.create({
     baseURL: 'https://api.pokemontcg.io/v1',
-    ...settings
 })
 
 
 
 export const pokemonApi = {
-    getCards() {
-       const promise = Instance.get('/cards')
+    getCards(page: number, types: string, subtype: string) {
+       const promise = Instance.get<ResponseCardsType>('/cards', {params: {page, pageSize: 4, types, subtype}})
         return promise
     },
     getCard(id:string) {
-        const promise = Instance.get(`/cards/${id}`)
+        const promise = Instance.get<ResponseCardType>(`/cards/${id}`)
         return promise
     },
     getTypes(){
-        const promise = Instance.get('/types')
+        const promise = Instance.get<ResponseTypesType>('/types')
         return promise
     },
     getSubTypes(){
-        const promise =Instance.get('/subtypes')
+        const promise =Instance.get<ResponseSubtypesType>('/subtypes')
         return promise
     }
 }
@@ -99,10 +91,29 @@ export const authApi = {
 }
 
 
-export type CardType = {
+type ResponseCardsType = {
+    cards: Array<CardType>
+}
+
+
+type ResponseCardType = {
+    card: CardType
+}
+
+
+type ResponseTypesType = {
+    types: Array<string>
+}
+
+
+type ResponseSubtypesType = {
+    subtypes: Array<string>
+}
+
+export interface CardType  {
     ability?: IAbility;
     artist: string;
-    attacks?: IAttack[];
+    attacks: IAttack[];
     convertedRetreatCost?: number;
     evolvesFrom?: string;
     hp?: string;
@@ -122,6 +133,11 @@ export type CardType = {
     text: string[];
     types: string[];
     weaknesses?: IWeakness[];
+    resistances: Array<IResistance>;
+}
+
+export interface FullCard extends CardType {
+
 }
 
 export type IAbility = {
@@ -131,7 +147,7 @@ export type IAbility = {
 }
 
 export type IAttack = {
-    ost: string[];
+    cost: string[];
     name: string;
     text: string;
     damage: string;

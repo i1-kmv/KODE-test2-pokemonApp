@@ -6,7 +6,7 @@ import {setAppErrorAC, setAppIsInitializedAC} from "../../app/app-reducer"
 
 
 
-const initialState: InitialStateType = {
+const initialState = {
     isLoggedIn: false,
     isConfirm: false,
 }
@@ -84,7 +84,4 @@ export const confirmTC = (data: FormikErrorType) => (dispatch: Dispatch) => {
 type ActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setAppIsConfirmedAC>
 
 
-type InitialStateType = {
-    isLoggedIn: boolean
-    isConfirm: boolean
-}
+type InitialStateType = typeof initialState

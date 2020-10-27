@@ -117,12 +117,16 @@ export const MainScreen = () => {
             </div>
             <div className={styles.mainContent}>
                 <div className={styles.selectsBar}>
+                    <div className={styles.type__text}>Choose type</div>
                     <select className={styles.types} onChange={selectTypeHandler} value={filterTypeValue}>
+                        <option> </option>
                         {
                             types.map(type => <option key={type}>{type}</option>)
                         }
                     </select>
+                    <div  className={styles.type__text}>Choose subtype</div>
                     <select className={styles.subtypes} onChange={selectSubtypeHandler} value={filterSubtypeValue}>
+                        <option> </option>
                         {
                             subtypes.map(subtype => <option key={subtype} >{subtype}</option>)
                         }

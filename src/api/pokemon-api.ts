@@ -32,7 +32,7 @@ export const authApi = {
     //request to send to thunk
     login_mock(data: FormikErrorType) {
         return new Promise((res, rej) => {
-            if (data.login === 'KODE' && data.password === '123456') {
+            if (data.login === 'kode@kode.ru' && data.password === 'Enk0deng') {
                 res(true)
             } else {
                 rej('Incorrect login or password')

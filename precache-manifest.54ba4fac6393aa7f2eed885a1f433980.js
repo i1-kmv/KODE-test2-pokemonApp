@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "805deb3e1a4d102f6418d0a9c74a534d",
+    "revision": "8c77bd48ac1bb1859a0a81ab6725e50c",
     "url": "/KODE-test2-pokemonApp/index.html"
   },
   {
-    "revision": "637d8580c43290abcb6a",
-    "url": "/KODE-test2-pokemonApp/static/css/main.f7f3621e.chunk.css"
+    "revision": "180bc644862d7cbe1457",
+    "url": "/KODE-test2-pokemonApp/static/css/main.681cf560.chunk.css"
   },
   {
-    "revision": "73774bd27a66653d814d",
-    "url": "/KODE-test2-pokemonApp/static/js/2.c1d21f4e.chunk.js"
+    "revision": "b7537d6956ca769467d7",
+    "url": "/KODE-test2-pokemonApp/static/js/2.81d68fa7.chunk.js"
   },
   {
     "revision": "44d582a97d02337b347d751d7baba8fd",
-    "url": "/KODE-test2-pokemonApp/static/js/2.c1d21f4e.chunk.js.LICENSE.txt"
+    "url": "/KODE-test2-pokemonApp/static/js/2.81d68fa7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "637d8580c43290abcb6a",
-    "url": "/KODE-test2-pokemonApp/static/js/main.eca4d349.chunk.js"
+    "revision": "180bc644862d7cbe1457",
+    "url": "/KODE-test2-pokemonApp/static/js/main.f4505fb8.chunk.js"
   },
   {
     "revision": "7df0b77853c6782c1433",

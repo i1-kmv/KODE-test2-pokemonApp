@@ -7,7 +7,7 @@
     display: inline-flex;
     justify-content: center;
     flex-wrap: wrap;
-  }
+}
 
 .pagination__btn {
     font-size: 16px;
@@ -19,12 +19,12 @@
     border-radius: 5px;
     background-color: #fff;
     outline-style: none;
-  }
+}
 
 .pagination__btn_active {
     font-weight: bold;
     border-color: orange
-  }
+}
 
 .pagination__space {
     padding: 10px 7px;

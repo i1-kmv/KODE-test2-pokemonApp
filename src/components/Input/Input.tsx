@@ -4,13 +4,13 @@ import styles from './Input.module.css'
 
 
 
-export const Input = (props:PropsType) => {
+export const Input = React.memo((props:PropsType) => {
+        return <label className={styles.input_area}>{props.title}<input type={props.type} name={props.name} {...props.formikProps}/></label>
+    }
+)
 
-    return (
-        <label className={styles.input_area}>{props.title}<input type={props.type} name={props.name} {...props.formikProps}/></label>
-    )
 
-}
+//Types
 
 
 type PropsType = {

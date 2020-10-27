@@ -16,6 +16,7 @@ import {ErrorSnackbar} from "../../utils/ErrorSnackbar"
 
 export const PasswordConfirmation = () => {
 
+
     const isConfirm = useSelector<AppRootStateType, boolean>(state => state.auth.isConfirm)
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
     const dispatch = useDispatch()
@@ -58,5 +59,4 @@ export const PasswordConfirmation = () => {
             <CustomizedSnackbars/>
         </>
     )
-
 }

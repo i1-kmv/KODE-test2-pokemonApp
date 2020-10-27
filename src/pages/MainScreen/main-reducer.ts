@@ -6,12 +6,10 @@ import {AppRootStateType} from "../../app/store";
 
 
 
-export type InitialStateType = typeof initialState
-
 const initialState = {
-    cards: [] as  Array<CardType>,
-    types: [] as  Array<string>,
-    subtypes: [] as  Array<string>,
+    cards: [] as Array<CardType>,
+    types: [] as Array<string>,
+    subtypes: [] as Array<string>,
     filterTypeValue: '',
     filterSubtypeValue: '',
     popupMode: false,
@@ -22,7 +20,6 @@ const initialState = {
 
 
 export const mainReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
-
     switch (action.type) {
         case "MAIN/SET-CARDS":
             return {...state, cards: action.cards}
@@ -53,65 +50,69 @@ export const mainReducer = (state: InitialStateType = initialState, action: Acti
 //AC
 
 
-export const setCardsAC = (cards: Array<CardType>) => ({ type: 'MAIN/SET-CARDS', cards } as const)
-export const setTypesAC = (types: Array<string>) => ({ type: 'MAIN/SET-TYPES', types } as const)
-export const setSubTypesAC = (subtypes: Array<string>) => ({ type: 'MAIN/SET-SUBTYPES', subtypes } as const)
-export const setTypeFilterAC = (filterTypeValue: string) => ({ type: 'MAIN/SET-TYPE-FILTER', filterTypeValue } as const)
-export const setSubtypeFilterAC = (filterSubtypeValue: string) => ({ type: 'MAIN/SET-SUBTYPE-FILTER', filterSubtypeValue } as const)
-export const setSupertypeFilterAC = (filterSupertypeValue: string) => ({ type: 'MAIN/SET-SUPERTYPE-FILTER', filterSupertypeValue } as const)
-export const setPopupModeAC = () => ({ type: 'MAIN/SET-POPUP-MODE'} as const)
-export const setPopupSrcAC = (popupSrcValue: string) => ({ type: 'MAIN/SET-POPUP-SRC', popupSrcValue } as const)
-export const setTotalCountAC = (count: number) => ({ type: 'MAIN/SET-TOTAL-COUNT', count } as const)
-export const setPageAC = (page: number) => ({ type: 'MAIN/SET-PAGE', page } as const)
+export const setCardsAC = (cards: Array<CardType>) => ({type: 'MAIN/SET-CARDS', cards} as const)
+export const setTypesAC = (types: Array<string>) => ({type: 'MAIN/SET-TYPES', types} as const)
+export const setSubTypesAC = (subtypes: Array<string>) => ({type: 'MAIN/SET-SUBTYPES', subtypes} as const)
+export const setTypeFilterAC = (filterTypeValue: string) => ({type: 'MAIN/SET-TYPE-FILTER', filterTypeValue} as const)
+export const setSubtypeFilterAC = (filterSubtypeValue: string) => ({
+    type: 'MAIN/SET-SUBTYPE-FILTER',
+    filterSubtypeValue
+} as const)
+export const setSupertypeFilterAC = (filterSupertypeValue: string) => ({
+    type: 'MAIN/SET-SUPERTYPE-FILTER',
+    filterSupertypeValue
+} as const)
+export const setPopupModeAC = () => ({type: 'MAIN/SET-POPUP-MODE'} as const)
+export const setPopupSrcAC = (popupSrcValue: string) => ({type: 'MAIN/SET-POPUP-SRC', popupSrcValue} as const)
+export const setTotalCountAC = (count: number) => ({type: 'MAIN/SET-TOTAL-COUNT', count} as const)
+export const setPageAC = (page: number) => ({type: 'MAIN/SET-PAGE', page} as const)
 
 
 //Thunks
 
 
-export const fetchCardsTC = () => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+export const fetchCardsTC = () => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
     let state = getState().main
     let page = state.page
     let types = state.filterTypeValue
     let subtype = state.filterSubtypeValue
-    pokemonApi.getCards(page, types, subtype)
-        .then((res) => {
-            dispatch(setCardsAC(res.data.cards))
-            dispatch(setTotalCountAC(res.headers['total-count']))
-        }).catch(err => {
+    try {
+        let res = await pokemonApi.getCards(page, types, subtype)
+        dispatch(setCardsAC(res.data.cards))
+        dispatch(setTotalCountAC(res.headers['total-count']))
+    } catch (err) {
         dispatch(setAppIsInitializedAC(true))
         dispatch(setAppErrorAC(err))
-    })
-
+    }
 }
 
 
-export const getTypesTC = () => (dispatch: Dispatch) => {
-
-    pokemonApi.getTypes()
-        .then((res) => {
-            dispatch(setTypesAC(res.data.types))
-        }).catch(err => {
+export const getTypesTC = () => async (dispatch: Dispatch) => {
+    try {
+        let res = await pokemonApi.getTypes()
+        dispatch(setTypesAC(res.data.types))
+    } catch (err) {
         dispatch(setAppIsInitializedAC(true))
         dispatch(setAppErrorAC(err))
-    })
-
+    }
 }
 
 
-export const getSubTypesTC = () => (dispatch: Dispatch) => {
-
-    pokemonApi.getSubTypes()
-        .then((res) => {
-            dispatch(setSubTypesAC(res.data.subtypes))
-        }).catch(err => {
+export const getSubTypesTC = () => async (dispatch: Dispatch) => {
+    try {
+        let res = await pokemonApi.getSubTypes()
+        dispatch(setSubTypesAC(res.data.subtypes))
+    } catch (err) {
         dispatch(setAppIsInitializedAC(true))
         dispatch(setAppErrorAC(err))
-    })
-
+    }
 }
 
 
 //Types
+
+
+export type InitialStateType = typeof initialState
 
 
 type ActionsType =

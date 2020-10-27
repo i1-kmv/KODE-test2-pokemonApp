@@ -7,12 +7,10 @@ import {profileReducer} from "../pages/PokemonProfile/profile-reducer"
 
 
 const rootReducer = combineReducers({
-
     auth: authReducer,
     app: appReducer,
     main: mainReducer,
     profile: profileReducer
-
 })
 
 
@@ -20,6 +18,7 @@ export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
+
 
 //@ts-ignore
 window.store = store

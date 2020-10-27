@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from "react"
+import React, {ChangeEvent, useCallback, useEffect} from "react"
 import styles from './MainScreen.module.css'
 import {PokemonCard} from "../../components/PokemonCard/PokemonCard"
 import {useDispatch, useSelector} from "react-redux"
@@ -10,7 +10,7 @@ import {
     setTypeFilterAC
 } from "./main-reducer"
 import {AppRootStateType} from "../../app/store"
-import {CardType, pokemonApi} from "../../api/pokemon-api"
+import {CardType} from "../../api/pokemon-api"
 import {Redirect} from 'react-router-dom'
 import {logoutTC} from "../Login/auth-reducer"
 import {Popup} from "../../components/Popup/Popup"
@@ -19,9 +19,7 @@ import Pagination from "../../components/Pagination/Pagination"
 
 
 
-
 export const MainScreen = () => {
-
 
 
     const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.main.cards)
@@ -43,14 +41,7 @@ export const MainScreen = () => {
         dispatch(fetchCardsTC())
         dispatch(getTypesTC())
         dispatch(getSubTypesTC())
-    }, [])
-
-
-
-    useEffect(() => {
-        dispatch(fetchCardsTC())
-    }, [page, filterTypeValue, filterSubtypeValue])
-
+    }, [dispatch])
 
 
     useEffect( ()=> {
@@ -60,8 +51,12 @@ export const MainScreen = () => {
         dispatch(setSubtypeFilterAC(subtype || ''))
         let pageNumber = Number(localStorage.getItem('currentPage'))
         dispatch(setPageAC(pageNumber))
-    },[] )
+    },[dispatch, localStorage.getItem('currentPage'),localStorage.getItem('TypeValue'),localStorage.getItem('SubtypeValue')])
 
+
+    useEffect(() => {
+        dispatch(fetchCardsTC())
+    }, [page, filterTypeValue, filterSubtypeValue, dispatch])
 
 
     const logoutHandler = () => {
@@ -73,6 +68,7 @@ export const MainScreen = () => {
         let newValue = e.currentTarget.value
         dispatch(setTypeFilterAC(newValue))
         localStorage.setItem('TypeValue', newValue)
+        localStorage.setItem('currentPage', '1' )
     }
 
 
@@ -80,13 +76,14 @@ export const MainScreen = () => {
         let newValue = e.currentTarget.value
         dispatch(setSubtypeFilterAC(newValue))
         localStorage.setItem('SubtypeValue', newValue)
+        localStorage.setItem('currentPage', '1' )
     }
 
 
     const changePageNumber = useCallback((page: number) => {
         dispatch(setPageAC(page))
         localStorage.setItem('currentPage', page.toString() )
-    }, [])
+    }, [dispatch])
 
 
     if (profileMode) {
@@ -100,7 +97,6 @@ export const MainScreen = () => {
 
 
     let finalCards = cards.map(card => {
-        {
             return (
                 <PokemonCard
                     id={card.id}
@@ -110,15 +106,10 @@ export const MainScreen = () => {
                     key={card.id}
                 />
             )
-        }
     })
 
 
-
-
-
     return (
-
         <div className={styles.wrap}>
             {popupMode && <Popup/>}
             <div className={styles.mainBar}>
@@ -139,19 +130,17 @@ export const MainScreen = () => {
                 </div>
                 <div className={styles.cards}>
                     <div className={styles.cardsItems}>
-                        {
-                            finalCards
-                        }
+                        {finalCards.length ?  finalCards : <div className={styles.noResults}>Sorry, the search for the specified parameters did not return any results :(</div>}
                     </div>
-                     <Pagination
+                    { finalCards.length ? <Pagination
                         changePageNumber={changePageNumber}
                         currentPage={page}
                         itemsOnPage={4}
                         totalItems={totalCount}
-                    />
+                    /> : ''}
+
                 </div>
             </div>
         </div>
     )
-
 }

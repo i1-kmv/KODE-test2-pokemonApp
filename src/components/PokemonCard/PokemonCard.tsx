@@ -2,18 +2,12 @@ import React, {useCallback} from "react"
 import styles from './PokemonCard.module.css'
 import {useDispatch} from "react-redux"
 import {setPopupModeAC, setPopupSrcAC} from "../../pages/MainScreen/main-reducer"
-import {fetchCardTC, setProfileModeAC} from "../../pages/PokemonProfile/profile-reducer";
+import {fetchCardTC, setProfileModeAC} from "../../pages/PokemonProfile/profile-reducer"
 
 
-type PropsType = {
-    imageUrl: string
-    id: string
-    name: string | undefined
-    artist: string | undefined
-}
 
 
-export const PokemonCard = (props: PropsType) => {
+export const PokemonCard = React.memo((props: PropsType) => {
 
 
     const dispatch = useDispatch()
@@ -22,7 +16,7 @@ export const PokemonCard = (props: PropsType) => {
     let popupHandler = useCallback(() => {
         dispatch(setPopupModeAC())
         dispatch(setPopupSrcAC(props.imageUrl))
-    }, [])
+    }, [props.imageUrl, dispatch])
 
 
     let profileHandler = useCallback(() => {
@@ -30,7 +24,7 @@ export const PokemonCard = (props: PropsType) => {
         localStorage.setItem('profileMode', JSON.stringify(true))
         dispatch(fetchCardTC(props.id))
         localStorage.setItem('profileId', props.id)
-    }, [])
+    }, [props.id,dispatch])
 
 
     return (
@@ -44,5 +38,15 @@ export const PokemonCard = (props: PropsType) => {
             </div>
         </div>
     )
+})
 
+
+//Types
+
+
+type PropsType = {
+    imageUrl: string
+    id: string
+    name: string | undefined
+    artist: string | undefined
 }

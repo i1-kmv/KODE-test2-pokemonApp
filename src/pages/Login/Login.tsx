@@ -14,6 +14,7 @@ import {ErrorSnackbar} from "../../utils/ErrorSnackbar"
 
 export const Login = () => {
 
+
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
@@ -65,8 +66,10 @@ export const Login = () => {
             </form>
         </div>
     )
-
 }
+
+
+//Types
 
 
 export type FormikErrorType = {

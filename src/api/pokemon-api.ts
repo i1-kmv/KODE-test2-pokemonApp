@@ -4,60 +4,32 @@ import {FormikErrorType} from "../pages/Login/Login"
 
 
 
-
-
-const Instance = axios.create({
+const instance = axios.create({
     baseURL: 'https://api.pokemontcg.io/v1',
 })
 
 
-
 export const pokemonApi = {
     getCards(page: number, types: string, subtype: string) {
-       const promise = Instance.get<ResponseCardsType>('/cards', {params: {page, pageSize: 4, types, subtype}})
-        return promise
+       return instance.get<ResponseCardsType>('/cards', {params: {page, pageSize: 4, types, subtype}})
     },
     getCard(id:string) {
-        const promise = Instance.get<ResponseCardType>(`/cards/${id}`)
-        return promise
+        return instance.get<ResponseCardType>(`/cards/${id}`)
     },
     getTypes(){
-        const promise = Instance.get<ResponseTypesType>('/types')
-        return promise
+        return instance.get<ResponseTypesType>('/types')
     },
     getSubTypes(){
-        const promise =Instance.get<ResponseSubtypesType>('/subtypes')
-        return promise
+        return instance.get<ResponseSubtypesType>('/subtypes')
     }
 }
 
 
-//Создал фэйковое айпи для имитации post запросов на
-
-
-const fakeSettings = {
-    withCredentials: true,
-    headers: {
-        'Page-Size': '4',
-        'Count': '4',
-        'Total-Count': '4',
-    }
-}
-
-
-const fakeInstance = axios.create({
-    baseURL: 'some/fake/api/',
-    ...fakeSettings
-})
+//Created a fake IP to simulate post requests
 
 
 export const authApi = {
-    //данный запрос можно будет использовать, когда подключим реальный бэк
-    login(data: FormikErrorType) {
-        const promise = fakeInstance.post('auth/login', data)
-        return promise
-    },
-    //запрос для проброса в thunk
+    //request to send to thunk
     login_mock(data: FormikErrorType) {
         return new Promise((res, rej) => {
             if (data.login === 'KODE' && data.password === '123456') {
@@ -67,12 +39,7 @@ export const authApi = {
             }
         })
     },
-    //данный запрос можно будет использовать, когда подключим реальный бэк
-    confirm(data: FormikErrorType) {
-        const promise = fakeInstance.post('auth/confirm', data)
-        return promise
-    },
-    //запрос для проброса в thunk
+    //request to send to thunk
     confirm_mock(data: FormikErrorType) {
         return new Promise((res, rej) => {
             if (data.code === '123456') {
@@ -82,7 +49,7 @@ export const authApi = {
             }
         })
     },
-    //запрос для проброса в thunk
+    //request to send to thunk
     logout__mock() {
         return new Promise((res, rej) => {
             res(true)
@@ -91,20 +58,20 @@ export const authApi = {
 }
 
 
+//Types
+
+
 type ResponseCardsType = {
     cards: Array<CardType>
 }
-
 
 type ResponseCardType = {
     card: CardType
 }
 
-
 type ResponseTypesType = {
     types: Array<string>
 }
-
 
 type ResponseSubtypesType = {
     subtypes: Array<string>
@@ -134,10 +101,6 @@ export interface CardType  {
     types: string[];
     weaknesses?: IWeakness[];
     resistances: Array<IResistance>;
-}
-
-export interface FullCard extends CardType {
-
 }
 
 export type IAbility = {

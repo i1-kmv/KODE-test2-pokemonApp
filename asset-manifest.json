@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/KODE-test2-pokemonApp/static/css/main.681cf560.chunk.css",
-    "main.js": "/KODE-test2-pokemonApp/static/js/main.3f576805.chunk.js",
-    "main.js.map": "/KODE-test2-pokemonApp/static/js/main.3f576805.chunk.js.map",
+    "main.css": "/KODE-test2-pokemonApp/static/css/main.ee39b0d9.chunk.css",
+    "main.js": "/KODE-test2-pokemonApp/static/js/main.14a9650f.chunk.js",
+    "main.js.map": "/KODE-test2-pokemonApp/static/js/main.14a9650f.chunk.js.map",
     "runtime-main.js": "/KODE-test2-pokemonApp/static/js/runtime-main.e2b4698e.js",
     "runtime-main.js.map": "/KODE-test2-pokemonApp/static/js/runtime-main.e2b4698e.js.map",
-    "static/js/2.81d68fa7.chunk.js": "/KODE-test2-pokemonApp/static/js/2.81d68fa7.chunk.js",
-    "static/js/2.81d68fa7.chunk.js.map": "/KODE-test2-pokemonApp/static/js/2.81d68fa7.chunk.js.map",
+    "static/js/2.15077142.chunk.js": "/KODE-test2-pokemonApp/static/js/2.15077142.chunk.js",
+    "static/js/2.15077142.chunk.js.map": "/KODE-test2-pokemonApp/static/js/2.15077142.chunk.js.map",
     "index.html": "/KODE-test2-pokemonApp/index.html",
-    "precache-manifest.5c867ff806c9b0b9e287b56e1cfac6a0.js": "/KODE-test2-pokemonApp/precache-manifest.5c867ff806c9b0b9e287b56e1cfac6a0.js",
+    "precache-manifest.cd10a445d96158f7dd67d92c03ddf3de.js": "/KODE-test2-pokemonApp/precache-manifest.cd10a445d96158f7dd67d92c03ddf3de.js",
     "service-worker.js": "/KODE-test2-pokemonApp/service-worker.js",
-    "static/css/main.681cf560.chunk.css.map": "/KODE-test2-pokemonApp/static/css/main.681cf560.chunk.css.map",
-    "static/js/2.81d68fa7.chunk.js.LICENSE.txt": "/KODE-test2-pokemonApp/static/js/2.81d68fa7.chunk.js.LICENSE.txt",
+    "static/css/main.ee39b0d9.chunk.css.map": "/KODE-test2-pokemonApp/static/css/main.ee39b0d9.chunk.css.map",
+    "static/js/2.15077142.chunk.js.LICENSE.txt": "/KODE-test2-pokemonApp/static/js/2.15077142.chunk.js.LICENSE.txt",
     "static/media/PageNotFound.module.css": "/KODE-test2-pokemonApp/static/media/PNF.99b57ac6.jpg",
     "static/media/go.svg": "/KODE-test2-pokemonApp/static/media/go.6b4ffa55.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.e2b4698e.js",
-    "static/js/2.81d68fa7.chunk.js",
-    "static/css/main.681cf560.chunk.css",
-    "static/js/main.3f576805.chunk.js"
+    "static/js/2.15077142.chunk.js",
+    "static/css/main.ee39b0d9.chunk.css",
+    "static/js/main.14a9650f.chunk.js"
   ]
 }
